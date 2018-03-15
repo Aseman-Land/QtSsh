@@ -31,9 +31,12 @@
 
 #include <QFileInfo>
 #include <QHash>
-#include <QIcon>
 #include <QList>
 #include <QString>
+
+#ifdef QT_WIDGETS_LIB
+#include <QIcon>
+#endif
 
 namespace QSsh {
 namespace Internal {
@@ -163,6 +166,7 @@ QVariant SftpFileSystemModel::data(const QModelIndex &index, int role) const
 {
     const SftpFileNode * const node = indexToFileNode(index);
     if (index.column() == 0 && role == Qt::DecorationRole) {
+#ifdef QT_WIDGETS_LIB
         switch (node->fileInfo.type) {
         case FileTypeRegular:
         case FileTypeOther:
@@ -172,6 +176,7 @@ QVariant SftpFileSystemModel::data(const QModelIndex &index, int role) const
         case FileTypeUnknown:
             return QIcon(":/utils/images/help.png"); // Shows a question mark.
         }
+#endif
     }
     if (index.column() == 1) {
         if (role == Qt::DisplayRole)

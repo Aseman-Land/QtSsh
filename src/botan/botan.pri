@@ -7,7 +7,15 @@ equals(USE_SYSTEM_BOTAN, 1) {
     PKGCONFIG += botan-1.10
 } else {
 
-SOURCES += $$PWD/botan.cpp
+android: {
+        SOURCES += $$PWD/botan_android.cpp
+        HEADERS += $$PWD/botan_android.h
+} else {
+    unix|linux|win32|macx: {
+        SOURCES += $$PWD/botan_unix.cpp
+        HEADERS += $$PWD/botan_unix.h
+    }
+}
 
 CONFIG += exceptions
 
@@ -51,6 +59,6 @@ unix:*-g++* {
 }
 
 linux*|freebsd* {
-    LIBS += -lrt $$QMAKE_LIBS_DYNLOAD
+    !android: LIBS += -lrt $$QMAKE_LIBS_DYNLOAD
 }
 }
