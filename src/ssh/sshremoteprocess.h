@@ -42,6 +42,15 @@ class SshRemoteProcessPrivate;
 class SshSendFacility;
 } // namespace Internal
 
+#ifdef Q_OS_IOS
+namespace QProcess {
+enum ProcessChannel {
+    StandardOutput,
+    StandardError
+};
+}
+#endif
+
 // TODO: ProcessChannel
 class QSSH_EXPORT SshRemoteProcess : public QIODevice
 {

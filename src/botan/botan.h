@@ -4,8 +4,9 @@
 #ifdef Q_OS_ANDROID
 #include "botan_android.h"
 #else
-#if defined(Q_OS_WIN) || defined(Q_OS_LINUX) || defined(Q_OS_MAC)
-#include "botan_unix.h"
+#ifdef Q_OS_IOS
+#include "botan_ios.h"
 #else
+#include "botan_unix.h"
 #endif
 #endif

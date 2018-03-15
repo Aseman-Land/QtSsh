@@ -11,9 +11,14 @@ android: {
         SOURCES += $$PWD/botan_android.cpp
         HEADERS += $$PWD/botan_android.h
 } else {
-    unix|linux|win32|macx: {
-        SOURCES += $$PWD/botan_unix.cpp
-        HEADERS += $$PWD/botan_unix.h
+    ios {
+        SOURCES += $$PWD/botan_ios.cpp
+        HEADERS += $$PWD/botan_ios.h
+    } else {
+        unix|linux|win32|macx: {
+            SOURCES += $$PWD/botan_unix.cpp
+            HEADERS += $$PWD/botan_unix.h
+        }
     }
 }
 

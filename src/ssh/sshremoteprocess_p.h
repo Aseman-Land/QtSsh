@@ -33,6 +33,15 @@
 #include <QPair>
 #include <QProcess>
 
+#ifdef Q_OS_IOS
+namespace QProcess {
+enum ProcessChannel {
+    StandardOutput,
+    StandardError
+};
+}
+#endif
+
 namespace QSsh {
 class SshRemoteProcess;
 
