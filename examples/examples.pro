@@ -1,2 +1,2 @@
 TEMPLATE = subdirs
-SUBDIRS = gitlab
+#SUBDIRS = gitlab

@@ -34,7 +34,9 @@
 #include <botan/botan.h>
 
 #include <QDateTime>
+#ifdef QT_WIDGETS_LIB
 #include <QInputDialog>
+#endif
 
 #include <string>
 
@@ -206,6 +208,7 @@ void SshKeyGenerator::generateOpenSslPrivateKeyString(const KeyPtr &key)
 
 QString SshKeyGenerator::getPassword() const
 {
+#ifdef QT_WIDGETS_LIB
     QInputDialog d;
     d.setInputMode(QInputDialog::TextInput);
     d.setTextEchoMode(QLineEdit::Password);
@@ -221,6 +224,9 @@ QString SshKeyGenerator::getPassword() const
         password = d.textValue();
     }
     return result == QDialog::Accepted ? password : QString();
+#else
+    return QString();
+#endif
 }
 
 } // namespace QSsh

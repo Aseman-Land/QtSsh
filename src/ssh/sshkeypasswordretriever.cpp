@@ -26,8 +26,10 @@
 #include "sshkeypasswordretriever_p.h"
 
 #include <QString>
+#ifdef QT_WIDGETS_LIB
 #include <QApplication>
 #include <QInputDialog>
+#endif
 
 #include <iostream>
 
@@ -37,6 +39,7 @@ namespace Internal {
 std::string SshKeyPasswordRetriever::get_passphrase(const std::string &, const std::string &,
     UI_Result &result) const
 {
+#ifdef QT_WIDGETS_LIB
     const bool hasGui = dynamic_cast<QApplication *>(QApplication::instance());
     if (hasGui) {
         bool ok;
@@ -46,7 +49,10 @@ std::string SshKeyPasswordRetriever::get_passphrase(const std::string &, const s
             QLineEdit::Password, QString(), &ok);
         result = ok ? OK : CANCEL_ACTION;
         return std::string(password.toLocal8Bit().data());
-    } else {
+    }
+    else
+#endif
+    {
         result = OK;
         std::string password;
         std::cout << "Please enter the password for your private key (set echo off beforehand!): " << std::flush;

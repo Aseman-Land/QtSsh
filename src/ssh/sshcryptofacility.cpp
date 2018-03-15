@@ -29,9 +29,11 @@
 #include "sshcapabilities_p.h"
 #include "sshexception_p.h"
 #include "sshkeyexchange_p.h"
-#include "sshkeypasswordretriever_p.h"
 #include "sshlogging_p.h"
 #include "sshpacket_p.h"
+#ifdef QT_WIDGETS_LIB
+#include "sshkeypasswordretriever_p.h"
+#endif
 
 #include <botan/botan.h>
 
@@ -246,6 +248,7 @@ void SshEncryptionFacility::createAuthenticationKey(const QByteArray &privKeyFil
 bool SshEncryptionFacility::createAuthenticationKeyFromPKCS8(const QByteArray &privKeyFileContents,
     QList<BigInt> &pubKeyParams, QList<BigInt> &allKeyParams, QString &error)
 {
+#ifdef QT_WIDGETS_LIB
     try {
         Pipe pipe;
         pipe.process_msg(convertByteArray(privKeyFileContents), privKeyFileContents.size());
@@ -276,6 +279,7 @@ bool SshEncryptionFacility::createAuthenticationKeyFromPKCS8(const QByteArray &p
         error = QLatin1String(ex.what());
         return false;
     }
+#endif
 
     return true;
 }

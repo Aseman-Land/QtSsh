@@ -1,4 +1,5 @@
-QT += gui network widgets
+QT += network
+QT -= gui
 
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
@@ -24,9 +25,7 @@ SOURCES = $$PWD/sshsendfacility.cpp \
     $$PWD/sftpchannel.cpp \
     $$PWD/sshremoteprocessrunner.cpp \
     $$PWD/sshconnectionmanager.cpp \
-    $$PWD/sshkeypasswordretriever.cpp \
     $$PWD/sftpfilesystemmodel.cpp \
-    $$PWD/sshkeycreationdialog.cpp \
     $$PWD/sshinit.cpp \
     $$PWD/sshdirecttcpiptunnel.cpp \
     $$PWD/sshlogging.cpp \
@@ -63,9 +62,7 @@ HEADERS = $$PWD/sshsendfacility_p.h \
     $$PWD/sshremoteprocessrunner.h \
     $$PWD/sshconnectionmanager.h \
     $$PWD/sshpseudoterminal.h \
-    $$PWD/sshkeypasswordretriever_p.h \
     $$PWD/sftpfilesystemmodel.h \
-    $$PWD/sshkeycreationdialog.h \
     $$PWD/ssh_global.h \
     $$PWD/sshdirecttcpiptunnel_p.h \
     $$PWD/sshinit_p.h \
@@ -78,4 +75,14 @@ HEADERS = $$PWD/sshsendfacility_p.h \
     $$PWD/sshforwardedtcpiptunnel.h \
     $$PWD/sshforwardedtcpiptunnel_p.h
 
-FORMS = $$PWD/sshkeycreationdialog.ui
+contains(QT, widgets): {
+    SOURCES += \
+        $$PWD/sshkeypasswordretriever.cpp \
+        $$PWD/sshkeycreationdialog.cpp
+
+    HEADERS += \
+        $$PWD/sshkeypasswordretriever_p.h \
+        $$PWD/sshkeycreationdialog.h
+
+    FORMS = $$PWD/sshkeycreationdialog.ui
+}
